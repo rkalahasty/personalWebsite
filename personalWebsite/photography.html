@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Photography</title>
+        <style>
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            }
+
+            /* Modal Content (Image) */
+            .modal-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent; /* Or the color of your surrounding content */
+            }
+
+
+            /* Add Animation */
+            .modal-content, #caption {
+                animation-name: zoom;
+                animation-duration: 0.6s;
+            }
+
+            @keyframes zoom {
+                from {transform:scale(0)}
+                to {transform:scale(1)}
+            }
+
+            h1 {
+                font-family: Perpetua, serif;
+            }
+            p {
+                font-family: Perpetua, serif;
+            }
+    
+            .links {
+                font-size: 18px;
+                margin-left: .5cm;
+                margin-top: .5cm;
+            }
+            
+            .links a {
+                color: rgb(66, 66, 207);
+                text-decoration: none; /* Optional: Removes underline on links */
+            }
+
+
+            .container, .container-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+            }
+            .image-large {
+                width: 100%;
+            }
+            .image-small {
+                width: calc(50% - 10px);
+                margin: 5px;
+            }
+            .container-grid {
+                justify-content: space-between;
+            }
+            .image-grid-small {
+                width: calc(33.33% - 10px);
+                margin: 5px;
+            }
+            h1 {
+                text-align: center;
+                font-size: 2em;
+                margin-bottom: 0.5em;
+            }
+            .album-buttons {
+                font-family: Perpetua, serif;
+                color: rgb(66, 66, 207);
+                font-size: .8cm;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1em;
+            }
+            .album-buttons .btn {
+                margin-right: 10px; /* add spacing to the right of each button */
+            }
+            .album-buttons .btn:last-child {
+                margin-right: 0; /* remove right margin from last button to align it properly */
+            }
+        </style>
+    </head>
+    <body style="background-color: #fbe9e7">
+        <h1 style = "padding-top: 10px; font-size: 50px;">Photography</h1>
+        <div class="album-buttons">
+            <button class="btn btn-primary album-button" data-album="featured">Featured</button>
+            <button class="btn btn-primary album-button" data-album="album2">Animals</button>
+            <button class="btn btn-primary album-button" data-album="album1">Nature</button>
+            <button class="btn btn-primary album-button" data-album="album3">Misc</button>
+        </div>
+        <p class="links" style="text-align: center;">
+            <a style="text-decoration:none"  href="index.html">Home</a> &middot; <a style="text-decoration:none"  href="https://www.linkedin.com/in/rohankalahasty/">CV</a> &middot; <a style="text-decoration:none"  href="papers.html">Research</a> &middot; <a style="text-decoration:none"  href="ongoing.html">On Going Projects</a> 
+        </p>
+        
+        
+        <div class="container" id="album-images">
+            <!-- Images from album will be populated here -->
+        </div>
+        <div id="myModal" class="modal">
+            <img class="modal-content" id="img01">
+        </div>
+        
+        <script>
+            
+            var albums = {
+                featured: ["featured/tiger.JPG", "featured/butterfly.JPG", "featured/bee.JPG", "featured/fat bird.JPG", "featured/lizard.JPG", "featured/two birds.png", "featured/isha f.png"], // Featured album
+                album1: ["Nature/IMG_0003.JPG","Nature/IMG_0007.JPG","Nature/IMG_0008.JPG","Nature/IMG_0035.JPG","Nature/IMG_0572.JPG","Nature/IMG_0574.JPG","Nature/IMG_0577.JPG","Nature/IMG_0580.JPG","Nature/IMG_0638.JPG","Nature/IMG_0815.JPG",],  // Album 1
+                album2: ["featured/tiger.JPG","Animals/IMG_1080.JPG", "Animals/IMG_0758.JPG", "Animals/IMG_0039.JPG", "Animals/IMG_0005.JPG", "Animals/IMG_0616.JPG", "Animals/IMG_1050.JPG", "Animals/IMG_0004.JPG", "Animals/IMG_0706.JPG", "Animals/IMG_0049.JPG", "Animals/IMG_0059.JPG", "Animals/IMG_0716.JPG", "Animals/IMG_0058.JPG", "Animals/IMG_0674.JPG", "Animals/IMG_0073.JPG", "Animals/IMG_0056.JPG", "Animals/IMG_0042.JPG", "Animals/IMG_0043.JPG", "Animals/IMG_0057.JPG", "Animals/IMG_0041.JPG", "Animals/IMG_0055.JPG", "Animals/IMG_1029.JPG", "Animals/two birds.png", "Animals/IMG_0054.JPG", "Animals/IMG_0087.JPG", "Animals/IMG_0044.JPG", "Animals/IMG_1039.JPG", "Animals/IMG_0053.JPG", "Animals/IMG_0047.JPG", "Animals/IMG_0085.JPG", "Animals/monkey.png", "Animals/IMG_0752.JPG", "Animals/IMG_0022.JPG", "Animals/IMG_0023.JPG", "Animals/IMG_0027.JPG", "Animals/IMG_0620.JPG", "Animals/IMG_0581.JPG", "Animals/IMG_0032.JPG", "Animals/IMG_0030.JPG", "Animals/IMG_0024.JPG", "Animals/IMG_0569.JPG", "Animals/IMG_0025.JPG"],  // Album 2
+                album3: ["people and pets/Screen Shot 2023-08-01 at 7.10.56 PM.png", "people and pets/IMG_1938.JPG", "people and pets/IMG_0060.JPG", "people and pets/Cooper2.png", "people and pets/Screen Shot 2023-08-01 at 7.11.08 PM.png", "people and pets/Cooper1.png", "people and pets/IMG_0046.JPG", "people and pets/Screen Shot 2023-08-01 at 7.11.28 PM.png", "people and pets/IMG_1932.JPG", "people and pets/IMG_0756.JPG"],  // Album 3
+            };
+    
+            function shuffle(array) {
+                var currentIndex = array.length, temporaryValue, randomIndex;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
+    
+            $(".album-button").click(function() {
+                var albumName = $(this).data("album");
+                var images = albums[albumName];
+    
+                if(albumName !== "featured"){
+                    images = shuffle(images);
+                }
+
+                var targetContainer = "#album-images";
+                var targetClass = albumName === "featured" ? "container" : "container-grid";
+    
+                $(targetContainer).empty().removeClass().addClass(targetClass);
+    
+                for (var i = 0; i < images.length; i++) {
+                    var img = $('<img>'); 
+                    img.attr('src', images[i]);
+    
+                    // Add appropriate class for image size
+                    if (albumName === "featured") {
+                        img.addClass(i === 0 ? 'image-large' : 'image-small');
+                    } else {
+                        img.addClass('image-grid-small');
+                    }
+                    
+                    $(targetContainer).append(img);
+                }
+            });
+    
+            // Trigger click event on Featured button to display by default
+            $("[data-album='featured']").trigger('click');
+        </script>
+        <script>
+            $(document).ready(function(){
+                $(".album-button").click(function(){
+                    // Reset color for all buttons
+                    $(".album-button").css("background-color", "");
+                    $(".album-button").removeClass("btn-primary").addClass("btn-outline-primary");
+            
+                    // Change color for the clicked button
+                    $(this).css("background-color", "blue");
+                    $(this).removeClass("btn-outline-primary").addClass("btn-primary");
+                });
+            });
+        </script>
+        <script>
+            $(document).on("click", "#album-images img", function(){
+                var src = $(this).attr('src');
+                $("#img01").attr('src', src);
+                $("#myModal").css('display', 'block');
+            });
+            
+            // When the user clicks anywhere outside of the modal, close it
+            $(window).click(function(event) {
+                if ($(event.target).hasClass('modal')) {
+                    $("#myModal").css('display', 'none');
+                }
+            });
+        </script>
+            
+    </body>
+</html>
+
+
+
+
